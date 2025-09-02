@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corte1 - Visualización de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Encabezado -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Corte 1 - Análisis de datos</h1>
+            <p class="text-gray-600">Juan Fernando Cano Aguilar</p>
+        </header>
+
+        <!-- Factor de multiplicación -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Factor de multiplicación de los coeficientes</h2>
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-600">Valor:</span>
+                <input type="number" value="10" id="factorMultiplicador"
+                    class="w-20 px-2 py-1 border border-gray-300 rounded text-center font-bold text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="boton"
+                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Enviar datos
+                </button>
+            </div>
+        </div>
+
+        <!-- Coeficientes -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 overflow-x-auto">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Coeficientes</h2>
+            <div class="grid grid-cols-7 gap-4 mb-4" id="coeficientesTitulo">
+                <div class="text-center font-medium text-gray-700">Y1</div>
+                <div class="text-center font-medium text-gray-700">Y2</div>
+                <div class="text-center font-medium text-gray-700">Y3</div>
+                <div class="text-center font-medium text-gray-700">Y4</div>
+                <div class="text-center font-medium text-gray-700">Y5</div>
+                <div class="text-center font-medium text-gray-700">Y6</div>
+                <div class="text-center font-medium text-gray-700">Y7</div>
+            </div>
+            <div class="grid grid-cols-7 gap-4" id="coeficientesDatos">
+                <!-- Se envia desde el js -->
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-8">
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Datos Generados</h2>
+
+                <div class="scroll-container relative overflow-auto max-h-96 border border-gray-200 rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th
+                                    class="sticky-corner px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                                    X</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y1</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y2</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y3</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y4</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y5</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y6</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y7</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y sumatoria</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    X normalizado</th>
+                                <th
+                                    class="sticky-header px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Y normalizado</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="tablaDatosGenerados">
+                            <!-- Se envia desde el js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Información adicional -->
+        <div class="mt-8 bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Rango de Valores</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="tablaRangoValores">
+            
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Gráfico de líneas -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Gráfico de Y normalizado</h2>
+                <canvas id="lineChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="flex gap-6">
+            <!-- Primera tabla -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex-1">
+                <h2 class="text-lg font-semibold mb-3 text-gray-800">Tabla 1 - Y promedio, rango 0.1</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Xa</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Xb</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">X centro</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Y promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPromedio1">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Segunda tabla -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex-1">
+                <h2 class="text-lg font-semibold mb-3 text-gray-800">Tabla 2 - Y promedio, rango 0.05</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Xa</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Xb</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">X centro</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Y promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPromedio2">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8 mt-8">Graficas de Tabla 1 y 2</h1>
+        
+        <!-- Contenedor principal con Tailwind -->
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Primer gráfico - Barras -->
+            <div class="bg-white p-6 rounded-lg shadow-md flex-1">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">Y promedio, rango 0.1</h2>
+                <canvas id="ventasChart" class="w-full h-64 md:h-80"></canvas>
+            </div>
+            
+            <!-- Segundo gráfico - Doughnut -->
+            <div class="bg-white p-6 rounded-lg shadow-md flex-1">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">Y promedio, rango 0.05</h2>
+                <canvas id="distribucionChart" class="w-full h-64 md:h-80"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto my-8 bg-white p-4 rounded-xl shadow">
+  <h2 class="text-xl font-bold text-gray-700 mb-4">Gráfica Combinada</h2>
+  <canvas id="combinedChart" class="w-full"></canvas>
+</div>
+
+
+
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
