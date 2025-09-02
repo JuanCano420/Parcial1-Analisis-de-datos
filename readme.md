@@ -37,7 +37,7 @@ La aplicación toma parámetros definidos por el usuario y genera un **conjunto 
 
 Link de pagina:
 
-![Link de la pagina:](https://www.chartjs.org/img/chartjs-logo.svg)
+![Link de la pagina:](https://parcial1-analisis-de-datos.vercel.app/)
 
 ---
 
@@ -55,4 +55,5 @@ Link de pagina:
 - **Autor:** Juan Cano  
 - **Lenguajes:** HTML, CSS, JavaScript  
 - **Librería de gráficos:** Chart.js  
+
 
