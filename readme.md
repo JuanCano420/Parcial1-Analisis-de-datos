@@ -52,9 +52,10 @@ https://parcial1-analisis-de-datos.vercel.app/
 
 ## 📖 Créditos
 
-- **Autor:** Juan Cano  
+- **Autor:** Juan Cano, Juan Lasso y Brahian Campo 
 - **Lenguajes:** HTML, CSS, JavaScript  
 - **Librería de gráficos:** Chart.js  
+
 
 
 
